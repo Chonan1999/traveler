@@ -10,6 +10,6 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
-  get 'top' => 'homes#top'  #この行を削除
-  root :to => 'homes#top'   #この行を記述
+  get 'top' => 'homes#top' #この行を削除
+  root :to => 'homes#top'  #この行を記述
 end
