@@ -1,7 +1,6 @@
 Rails.application.routes.draw do
   devise_for :users
-  get 'posts/new' #削除
-  post 'posts' => 'posts#create' #削除
+  resources :users, only:[:index, :show]
   resources :posts do
     resources :comments, only:[:create, :destroy]
     resource :favorites, only:[:create, :destroy]
