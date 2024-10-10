@@ -1,7 +1,7 @@
 <div class="bg">
   <div class="box">
     <div class="box-inner">
-      <%= form_with model: @user, url: new_user_session_path, local: true do |f| %>
+      <%= form_with model: @user, url: user_session_path, local: true do |f| %>
       <% flash.each do |message_type, message| %>
         <%= content_tag :div, message, class: message_type %>
       <% end %>
@@ -16,7 +16,7 @@
             <%= f.label :password, "パスワード" %>
           </div>
           <div class="column-right">
-            <%= link_to "パスワードを忘れた場合", new_user_session_path %>
+            <%= link_to "パスワードを忘れた場合", new_user_password_path %>
           </div>
         </div>
         <%= f.password_field :password, autocomplete: "current-password" %>
@@ -34,7 +34,7 @@
 
       <div class="box-newusr">
         <p><span>------------</span> 新しいお客様ですか？ <span>------------</span></p>
-        <%= link_to "新規登録", new_user_session_path %>
+        <%= link_to "新規登録", new_user_registration_path %>
       </div>
     </div>
   </div>
