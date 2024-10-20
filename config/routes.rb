@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resource :relationships, only: [:create, :destroy]
 end
   resources :posts do
-    
+    resources :comments, only:[:create, :destroy]
     resource :favorites, only:[:create, :destroy]
     collection do
       get 'confirm'
