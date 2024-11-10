@@ -5,7 +5,7 @@
 <% end %>
 </div>
 <div class="row mt-5 index-left w-100">
-<% posts.each do |post| %>
+<% @posts.each do |post| %>
 <div class="one-post col-sm-4 mb-3">
   <%= link_to post_path(post) do %>
   <p class="caption"><%= post.user.name %></p>
