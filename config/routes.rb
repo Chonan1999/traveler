@@ -22,4 +22,7 @@ end
   # Defines the root path route ("/")
   # root "posts#index"
   root :to => 'homes#top'
+  resources :users, only: [:show,:edit,:update]
+  resources :messages, only: [:create]
+  resources :rooms, only: [:create,:show]
 end
