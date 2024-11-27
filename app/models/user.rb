@@ -10,6 +10,8 @@ class User < ApplicationRecord
   has_many :view_counts, dependent: :destroy
   has_many :follower, class_name: "Relationship", foreign_key: "follower_id", dependent: :destroy
   has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy
+  has_many :followings, class_name: 'Follow', foreign_key: 'follower_id'
+  has_many :followers, class_name: 'Follow', foreign_key: 'followed_id'
   has_many :following_user, through: :follower, source: :followed
   has_many :follower_user, through: :followed, source: :follower
   has_many :messages, dependent: :destroy
@@ -32,4 +34,8 @@ class User < ApplicationRecord
     following_user.include?(user)
   end  
   validates :name, presence: true
+
+  def followed_by?(other_user)
+    self.follower.exists?(follower_id: other_user.id)
+  end
 end
