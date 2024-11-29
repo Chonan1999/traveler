@@ -6,7 +6,50 @@
       <% else %>
         <h1 class="font-weight-normal"><%= @user.name %>さんのページ</h1>
       <% end %>
+
+    <div class="cover-user-show">
+  <div class="container d-flex flex-column align-items-center">
+    <div class="row mt-5">
+      <% if user_signed_in? && @user == current_user %>
+        <h1 class="font-weight-normal">マイページ</h1>
+      <% else %>
+        <h1 class="font-weight-normal"><%= @user.name %>さんのページ</h1>
+      <% end %>
     </div>
+
+    <% unless @user.id == current_user.id %>
+      <p>条件1: ユーザーが自分ではありません。</p>
+      <% if current_user.followed_by?(@user) && @user.followed_by?(current_user) %>
+        <p>条件2: 相互フォローされています。</p>
+        <% if @isRoom == true %>
+          <p>条件3: チャットルームが存在します。</p>
+          <p class="user-show-room">
+            <a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+          </p>
+        <% else %>
+          <p>条件3: チャットルームが存在しません。</p>
+          <%= form_for @room do |f| %>
+            <%= fields_for @entry do |e| %>
+              <%= e.hidden_field :user_id, value: @user.id %>
+            <% end %>
+            <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat" %>
+          <% end %>
+        <% end %>
+      <% else %>
+        <p>条件2: 相互フォローされていません。</p>
+      <% end %>
+    <% else %>
+      <p>条件1: 自分自身のページです。</p>
+    <% end %>
+
+    <!-- 条件外でも必ずデバッグを表示 -->
+    <p>Debug: current_user.followed_by?(@user) = <%= current_user.followed_by?(@user) %></p>
+    <p>Debug: @user.followed_by?(current_user) = <%= @user.followed_by?(current_user) %></p>
+    <p>Debug: @isRoom = <%= @isRoom %></p>
+    <p>Debug: @roomId = <%= @roomId %></p>
+  </div>
+</div>
+    
     <% if user_signed_in? && @user == current_user %>
       <p class="d-flex align-self-end">
         <%= link_to "プロフィール編集", edit_user_path(@user), class: "btn btn-success" %>
@@ -47,19 +90,21 @@
       <% end %>
     </div>
     <%= paginate @posts %>
+    </div>
   </div>
     <% unless @user.id == current_user.id %>
     <% if (current_user.followed_by? @user) && (@user.followed_by? current_user)  %>
     <% if @isRoom == true %>
-      <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+      <p class="user-show-room"><a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a></p>
     <% else %>
     <%= form_for @room do |f| %>
       <%= fields_for @entry do |e| %>
         <%= e.hidden_field :user_id, value: @user.id %>
       <% end %>
-      <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+        <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat"%>
+      <% end %>
+      <p>Debug: @isRoom = <%= @isRoom %></p>
+      <p>Debug: @roomId = <%= @roomId %></p>
     <% end %>
   <% end %>
-  <% end %>
 <% end %>
-</div>

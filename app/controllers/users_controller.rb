@@ -8,26 +8,31 @@ class UsersController < ApplicationController
    
   def show
     @user = User.find(params[:id])
-    @currentUserEntry=Entry.where(user_id: current_user.id)
-    @userEntry=Entry.where(user_id: @user.id)
+    @current_entry=Entry.where(user_id: current_user.id)
+    @another_entry=Entry.where(user_id: @user.id)
 
     @isRoom = false
-    @roomId = nil
-
     unless @user.id == current_user.id
-      @currentUserEntry.each do |cu|
-        @userEntry.each do |u|
+      @current_entry.each do |cu|
+        @another_entry.each do |u|
+          Rails.logger.debug "DEBUG: Comparing cu.room_id = #{cu.room_id} with u.room_id = #{u.room_id}" # 比較のログ
           if cu.room_id == u.room_id then
             @isRoom = true
             @roomId = cu.room_id
+            break
           end
         end
+        break if @isRoom
       end
+
       unless @isRoom
-        @room = Room.new
-        @entry = Entry.new
+        @room = Room.create # Roomを新規作成
+        Entry.create(user_id: current_user.id, room_id: @room.id) # 現在のユーザー用Entry作成
+        Entry.create(user_id: @user.id, room_id: @room.id) # 相手ユーザー用Entry作成
       end
     end
+    Rails.logger.debug "DEBUG: @isRoom = #{@isRoom}" # 追加
+    Rails.logger.debug "DEBUG: @roomId = #{@roomId}" # 追加
     
     @posts = @user.posts.page(params[:page]).per(8).reverse_order
     @following_users = @user.following_user
