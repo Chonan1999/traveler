@@ -16,6 +16,14 @@ class User < ApplicationRecord
   has_many :follower_user, through: :followed, source: :follower
   has_many :entries, dependent: :destroy
   has_many :messages, dependent: :destroy
+  # フォロワーを取得する関連付け
+  has_many :reverse_relationships, foreign_key: :followed_id, class_name: 'Relationship', dependent: :destroy
+  has_many :followers, through: :reverse_relationships, source: :follower
+
+   # フォローしているユーザーを取得する関連付け
+   has_many :relationships, foreign_key: :follower_id, dependent: :destroy
+   has_many :followings, through: :relationships, source: :followed
+
   
 
   attachment :profile_image
@@ -38,5 +46,10 @@ class User < ApplicationRecord
 
   def followed_by?(other_user)
     self.follower.exists?(follower_id: other_user.id)
+  end
+
+  # フォローされているか確認するメソッド
+  def followed_by?(user)
+    followers.include?(user)
   end
 end

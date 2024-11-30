@@ -13,6 +13,7 @@ class RoomsController < ApplicationController
         @room = Room.find(params[:id])
         if Entry.where(:user_id => current_user.id, :room_id => @room.id).present?
           @messages = @room.messages
+          @messages = @room.messages.includes(:user)
           @message = Message.new
           @entries = @room.entries
         #Roomで相手の名前表示するために記述
