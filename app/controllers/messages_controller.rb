@@ -2,11 +2,21 @@ class MessagesController < ApplicationController
     before_action :authenticate_user!, only: [:create]
 
     def create
-        if Entry.where(user_id: current_user.id, room_id: params[:message][:room_id]).present?
-          @message = Message.create(params.require(:message).permit(:user_id, :content, :room_id).merge(user_id: current_user.id))
+        Rails.logger.debug "Params: #{params[:message]}" # パラメータをログに出力
+        @message = current_user.messages.new(message_params)
+        if @message.save
+         Rails.logger.debug "Params: #{params[:message]}" # パラメータをログに出力
+         redirect_to room_path(@message.room_id), notice: "メッセージを送信しました！"
         else
+          Rails.logger.debug "Message save failed: #{@message.errors.full_messages}" # エラー内容をログに出力
           flash[:alert] = "メッセージ送信に失敗しました。"
+          redirect_to room_path(params[:message][:room_id])
         end
-        redirect_to "/rooms/#{@message.room_id}"
+    end
+
+    private
+
+    def message_params
+      params.require(:message).permit(:content, :room_id)
     end
 end

@@ -16,8 +16,7 @@ class RoomsController < ApplicationController
           @messages = @room.messages.includes(:user)
           @message = Message.new
           @entries = @room.entries
-        #Roomで相手の名前表示するために記述
-          @myUserId = current_user.id
+          @participant_names = @entries.map { |entry| entry.user.name }.join('さんと ')
         else
           redirect_back(fallback_location: root_path)
         end

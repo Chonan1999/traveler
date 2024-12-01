@@ -58,3 +58,143 @@ a:hover {
 .profile-img {
     border-radius: 50%;
 }
+
+/* メッセージ全体のスタイル */
+.chats {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  /* 各メッセージのスタイル */
+  .chat-box {
+    display: flex;
+    align-items: flex-end;
+  }
+  
+  .my-message {
+    justify-content: flex-end; /* 自分のメッセージは右側に配置 */
+  }
+  
+  .other-message {
+    justify-content: flex-start; /* 他人のメッセージは左側に配置 */
+  }
+  
+ /* メッセージ全体のスタイル */
+.chats {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* 各メッセージの間隔 */
+}
+
+/* 各メッセージのスタイル */
+.chat-box {
+  display: flex;
+  align-items: flex-end;
+}
+
+.my-message {
+  display: flex;
+  justify-content: flex-end; /* 自分の吹き出しは右側に配置 */
+  align-items: flex-end;
+  width: 100%;
+}
+
+.other-message {
+  display: flex;
+  justify-content: flex-start; /* 相手の吹き出しは左側に配置 */
+  align-items: flex-start;
+  width: 100%;
+}
+
+/* 吹き出しのスタイル */
+.chat-hukidashi {
+  max-width: calc(1em * 15); /* 1文字分の幅 × 15文字 */
+  padding: 10px;
+  border-radius: 15px;
+  font-size: 14px;
+  line-height: 1.5; /* 行間を適切に */
+  word-wrap: break-word; /* 単語の途中で改行 */
+  white-space: normal; /* 自動改行を有効に */
+}
+
+.my-hukidashi {
+  background-color: #d1e7dd; /* 自分の吹き出しの背景色 */
+  color: #0f5132;
+  border: 1px solid #badbcc;
+}
+
+.other-hukidashi {
+  background-color: #f8d7da; /* 他人の吹き出しの背景色 */
+  color: #842029;
+  border: 1px solid #f5c2c7;
+}
+  
+  /* 吹き出しの時間スタイル */
+  .chat-time {
+    display: block;
+    font-size: 12px;
+    color: #6c757d;
+    margin-top: 5px;
+  }
+  
+  /* 画面全体の配置調整 */
+  .chats {
+    padding: 20px;
+    max-height: 500px; /* スクロール可能な高さ */
+    overflow-y: auto; /* スクロールを有効に */
+    border: 1px solid #ccc;
+    border-radius: 10px;
+  }
+  
+  .posts {
+    position: fixed;
+    bottom: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 10px;
+    background-color: white;
+    border-top: 1px solid #ccc;
+  }
+  
+  .form-text-field {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-right: 10px;
+  }
+  
+  .form-submit {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .form-submit:hover {
+    background-color: #0056b3;
+  }
+  
+  body {
+    background-image: url(/assets/mypage-scaled.jpg); /* マイページの背景画像のパス */
+    background-size: cover; /* 背景を画面全体に表示 */
+    background-position: center;
+  }
+  
+  .chats {
+    background-color: white; /* トーク欄の背景を白くする */
+    border-radius: 10px; /* トーク欄の角を丸く */
+    padding: 20px; /* トーク欄内の余白 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* トーク欄に影を追加 */
+  }
+  
+  .rooms-title {
+    background-color: white; /* 背景を白に設定 */
+    padding: 10px; /* 内側の余白を追加 */
+    border-radius: 5px; /* 角を丸くする */
+    display: inline-block; /* 背景色が文字の長さに収まるようにする */
+  }
+  

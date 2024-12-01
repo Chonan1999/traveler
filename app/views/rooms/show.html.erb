@@ -1,7 +1,7 @@
 <div class="left-button">
 <%= link_to "ユーザー一覧に戻る", users_path, class: "edit-link" %>
 </div>
-<h4 class="rooms-title">トークルーム</h4>
+<h4 class="rooms-title"><%= @participant_names %>さんのトークルーム</h4>
 <% @entries.each do |e| %>
   <div class="user-name">
   <strong>
@@ -14,16 +14,29 @@
   <div class="chat">
     <% if @messages.present? %>
       <% @messages.each do |m| %>
-        <div class="chat-box">
-          <div class="chat-face">
+        <% if m.user == current_user %>
+        <!-- 自分のメッセージ -->
+        <div class="chat-box my-message">
+          <div class="chat-hukidashi my-hukidashi">
+            <strong><%= m.content %></strong><br>
+            <span class="chat-time"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
+          </div>  
         </div>
-          <div class="chat-hukidashi"> <strong><%= m.content %></strong> <br>
-            <%= m.created_at.strftime("%Y-%m-%d %H:%M")%>
+      <% else %>
+        <!-- 他人のメッセージ -->
+        <div class="chat-box other-message">
+          <div class="chat-hukidashi other-hukidashi"> 
+            よろしくね〜
+            <strong><%= m.content %></strong> <br>
+             <span class="chat-time"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
           </div>
         </div>
       <% end %>
     <% end %>
-    </div>
+  <% else %>
+    <p>まだメッセージがありません。</p>
+  <% end %>
+ </div>
   <div class="posts">
     <%= form_with(model: @message, local: true) do |f| %>
       <%= f.text_field :content, placeholder: "メッセージを入力して下さい", size: 70, class:"form-text-field" %>
