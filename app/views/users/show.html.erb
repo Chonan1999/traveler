@@ -18,37 +18,21 @@
     </div>
 
     <% unless @user.id == current_user.id %>
-      <p>条件1: ユーザーが自分ではありません。</p>
-      <% if current_user.followed_by?(@user) && @user.followed_by?(current_user) %>
-        <p>条件2: 相互フォローされています。</p>
-        <% if @isRoom == true %>
-          <p>条件3: チャットルームが存在します。</p>
-          <p class="user-show-room">
-            <a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
-          </p>
-        <% else %>
-          <p>条件3: チャットルームが存在しません。</p>
-          <%= form_for @room do |f| %>
-            <%= fields_for @entry do |e| %>
-              <%= e.hidden_field :user_id, value: @user.id %>
-            <% end %>
-            <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat" %>
-          <% end %>
-        <% end %>
+    <% if current_user.followed_by?(@user) && @user.followed_by?(current_user) %>
+      <% if @isRoom == true %>
+        <p class="user-show-room">
+          <a href="/rooms/<%= @roomId %>" class="btn btn-primary btn-lg">チャットへ</a>
+        </p>
       <% else %>
-        <p>条件2: 相互フォローされていません。</p>
+        <%= form_for @room do |f| %>
+          <%= fields_for @entry do |e| %>
+            <%= e.hidden_field :user_id, value: @user.id %>
+          <% end %>
+          <%= f.submit "チャットを始める", class:"btn btn-primary btn-lg user-show-chat" %>
+        <% end %>
       <% end %>
-    <% else %>
-      <p>条件1: 自分自身のページです。</p>
     <% end %>
-
-    <!-- 条件外でも必ずデバッグを表示 -->
-    <p>Debug: current_user.followed_by?(@user) = <%= current_user.followed_by?(@user) %></p>
-    <p>Debug: @user.followed_by?(current_user) = <%= @user.followed_by?(current_user) %></p>
-    <p>Debug: @isRoom = <%= @isRoom %></p>
-    <p>Debug: @roomId = <%= @roomId %></p>
-  </div>
-</div>
+  <% end %>
     
     <% if user_signed_in? && @user == current_user %>
       <p class="d-flex align-self-end">

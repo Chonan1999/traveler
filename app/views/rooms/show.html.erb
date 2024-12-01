@@ -1,12 +1,8 @@
-<div class="left-button">
-<%= link_to "ユーザー一覧に戻る", users_path, class: "edit-link" %>
-</div>
-<h4 class="rooms-title"><%= @participant_names %>さんのトークルーム</h4>
-<% @entries.each do |e| %>
-  <div class="user-name">
-  <strong>
-   <%= link_to "#{e.user.name}さん", user_path(e.user), class: "rooms-user-link" %>
-  </strong>
+<h4 class="rooms-title">
+  <%= link_to "#{@user1.name}", user_path(@user1), class: "rooms-user-link" %> と
+  <%= link_to "#{@user2.name}", user_path(@user2), class: "rooms-user-link" %> のトークルーム
+</h4>
+  <% @entries.each do |e| %>
 </div>
 <% end %>
 <hr>
@@ -26,7 +22,6 @@
         <!-- 他人のメッセージ -->
         <div class="chat-box other-message">
           <div class="chat-hukidashi other-hukidashi"> 
-            よろしくね〜
             <strong><%= m.content %></strong> <br>
              <span class="chat-time"><%= m.created_at.strftime("%Y-%m-%d %H:%M") %></span>
           </div>

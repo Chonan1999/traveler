@@ -59,8 +59,15 @@ a:hover {
     border-radius: 50%;
 }
 
+.rooms-title {
+  text-align: center; /* タイトルを中央に配置 */
+}
+
+
 /* メッセージ全体のスタイル */
 .chats {
+    margin: 0 auto; /* トークルームを中央に配置 */
+    width: 80%; /* 幅を適切に調整 */
     display: flex;
     flex-direction: column;
   }
@@ -149,11 +156,14 @@ a:hover {
   .posts {
     position: fixed;
     bottom: 10px;
-    width: 100%;
+    width: 80%;
+    align-items: center;
     display: flex;
     justify-content: center;
+    align-items: center; /* 垂直方向の中央揃え */
     padding: 10px;
     background-color: white;
+    margin: 0 20px; /* 左右に20pxの余白を追加 */
     border-top: 1px solid #ccc;
   }
   
@@ -162,7 +172,8 @@ a:hover {
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    margin-right: 10px;
+    margin-right: 15px;
+    max-width: 80%;
   }
   
   .form-submit {
@@ -192,9 +203,12 @@ a:hover {
   }
   
   .rooms-title {
-    background-color: white; /* 背景を白に設定 */
-    padding: 10px; /* 内側の余白を追加 */
+    background-color: white !important; /* 背景を白に設定 */
+    font-size: 20px !important; /* 文字を一回り大きくする */
+    font-weight: bold; /* 文字を太くする */
+    text-align: center; /* タイトルの文字を中央揃え */
+    padding: 10px 20px; /* 上下10px、左右20pxの余白を設定 */
     border-radius: 5px; /* 角を丸くする */
-    display: inline-block; /* 背景色が文字の長さに収まるようにする */
+    margin: 20px auto 15px auto; /* 水平中央揃えと下部余白 */
+    display: table; /* コンテンツに合わせて幅を自動調整 */
   }
-  
